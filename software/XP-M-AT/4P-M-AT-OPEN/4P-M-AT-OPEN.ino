@@ -2,9 +2,8 @@
 
 #include <USB-MIDI.h>
 
-#define CHANNEL 1
 #define NUM_DIALS 4
-
+#define CHANNEL 1
 #define CC_FOR_DIAL_0 0
 #define CC_FOR_DIAL_1 1
 #define CC_FOR_DIAL_2 2
@@ -13,6 +12,7 @@
 int prev_value[NUM_DIALS];
 midiEventPacket_t event;
 int ADC_pins[NUM_DIALS] = {A0, A1, A2, A3};
+int cc_for_dial[NUM_DIALS] = {CC_FOR_DIAL_0, CC_FOR_DIAL_1, CC_FOR_DIAL_2, CC_FOR_DIAL_3};
 
 void setup() {
     for (int i = 0; i < NUM_DIALS; i ++) {
@@ -23,7 +23,7 @@ void setup() {
 
 void loop() {
     for (int i = 0; i < NUM_DIALS; i ++) {
-        read_adc_send_midi(ADC_pins[i], i, CHANNEL, CC_FOR_DIAL_0);
+        read_adc_send_midi(ADC_pins[i], i, CHANNEL, cc_for_dial[i]);
     }
     delay(50);
 }
